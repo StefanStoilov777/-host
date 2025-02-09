@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stefan Stoilov - About Me</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #001f3f, #0074D9);
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: popIn 0.5s ease-in-out;
+        }
+        h1, h2 {
+            margin: 10px 0;
+        }
+        .skills {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .skill {
+            background: #0074D9;
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        .certificates {
+            margin-top: 20px;
+        }
+        .certificates img {
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .certificates img:hover {
+            transform: scale(1.1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="profile.jpg" alt="Stefan Stoilov">
+        <h1>Stefan Nikolay Stoilov</h1>
+        <h2>Cybersecurity Enthusiast, Coder, Future Engineer</h2>
+        
+        <h3>Skills</h3>
+        <div class="skills">
+            <div class="skill">Coding</div>
+            <div class="skill">Cybersecurity</div>
+            <div class="skill">Building Robots</div>
+        </div>
+        
+        <h3>Programming Languages</h3>
+        <div class="skills">
+            <div class="skill">Python</div>
+            <div class="skill">HTML</div>
+            <div class="skill">JavaScript</div>
+            <div class="skill">Java (a bit)</div>
+        </div>
+        
+        <h3>Certificates</h3>
+        <div class="certificates" id="certGallery">
+            <!-- Certificate images will be loaded here -->
+        </div>
+        
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:sstoilov777@gmail.com" style="color: #7FDBFF; text-decoration: none;">sstoilov777@gmail.com</a></p>
+    </div>
+
+    <script>
+        // Load certificates dynamically
+        const certGallery = document.getElementById("certGallery");
+        const certFolder = "certificates/"; // Folder where certificates are stored
+        const certImages = ["harvard1.jpg"]; // Placeholder list
+
+        certImages.forEach(img => {
+            let imgElem = document.createElement("img");
+            imgElem.src = certFolder + img;
+            imgElem.alt = "Certificate";
+            imgElem.onclick = () => openCert(imgElem.src);
+            certGallery.appendChild(imgElem);
+        });
+
+        function openCert(src) {
+            let overlay = document.createElement("div");
+            overlay.style.position = "fixed";
+            overlay.style.top = "0";
+            overlay.style.left = "0";
+            overlay.style.width = "100vw";
+            overlay.style.height = "100vh";
+            overlay.style.background = "rgba(0, 0, 0, 0.8)";
+            overlay.style.display = "flex";
+            overlay.style.justifyContent = "center";
+            overlay.style.alignItems = "center";
+            overlay.onclick = () => overlay.remove();
+            
+            let img = document.createElement("img");
+            img.src = src;
+            img.style.maxWidth = "80%";
+            img.style.maxHeight = "80%";
+            img.style.borderRadius = "10px";
+            img.style.boxShadow = "0 0 15px rgba(255, 255, 255, 0.5)";
+            
+            overlay.appendChild(img);
+            document.body.appendChild(overlay);
+        }
+
+        // Easter Egg: Hidden Game
+        document.addEventListener("keydown", (e) => {
+            if (e.code === "KeyG") {
+                alert("Easter Egg Unlocked! Play a quick game!");
+                window.location.href = "game.html"; // Placeholder for an actual game
+            }
+        });
+    </script>
+</body>
+</html>
