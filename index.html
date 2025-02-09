@@ -112,11 +112,12 @@
             cursor: pointer;
         }
         .overlay img {
-            max-width: 90%;
-            max-height: 90%;
             border-radius: 20px;
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-            object-fit: contain; /* Ensures the image maintains its aspect ratio */
+            max-width: none; /* Remove max-width constraint */
+            max-height: none; /* Remove max-height constraint */
+            width: auto; /* Allow the image to use its original width */
+            height: auto; /* Allow the image to use its original height */
         }
     </style>
 </head>
