@@ -7,26 +7,32 @@
     <style>
         :root {
             color-scheme: light dark;
+            --primary-color: #10a37f;
+            --background-gradient: linear-gradient(135deg, #0a2540, #1c4e80);
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --hover-effect: brightness(1.2);
         }
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #001f3f, #0074D9);
-            color: white;
+            background: var(--background-gradient);
+            color: var(--text-color);
             text-align: center;
             overflow: hidden;
         }
         .container {
             max-width: 800px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             animation: fadeIn 1s ease-in-out;
         }
         img {
@@ -34,34 +40,55 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
             animation: popIn 0.5s ease-in-out;
         }
         h1, h2 {
             margin: 10px 0;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
         }
         .skills {
             display: flex;
             justify-content: center;
             gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
         }
         .skill {
-            background: #0074D9;
-            padding: 10px 15px;
+            background: var(--primary-color);
+            padding: 10px 20px;
             border-radius: 10px;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, filter 0.2s;
+        }
+        .skill:hover {
+            transform: translateY(-2px);
+            filter: var(--hover-effect);
         }
         .certificates {
-            margin-top: 20px;
+            margin-top: 30px;
         }
         .certificates img {
-            width: 100px;
-            height: auto;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px;
         }
         .certificates img:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
@@ -70,6 +97,25 @@
         @keyframes popIn {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+        }
+        .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>
@@ -100,7 +146,7 @@
         </div>
         
         <h3>Contact</h3>
-        <p>Email: <a href="mailto:sstoilov777@gmail.com" style="color: #7FDBFF; text-decoration: none;">sstoilov777@gmail.com</a></p>
+        <p>Email: <a href="mailto:sstoilov777@gmail.com" style="color: var(--primary-color); text-decoration: none;">sstoilov777@gmail.com</a></p>
     </div>
     <script>
         // Load certificates dynamically from URLs
@@ -119,24 +165,11 @@
     
         function openCert(src) {
             let overlay = document.createElement("div");
-            overlay.style.position = "fixed";
-            overlay.style.top = "0";
-            overlay.style.left = "0";
-            overlay.style.width = "100vw";
-            overlay.style.height = "100vh";
-            overlay.style.background = "rgba(0, 0, 0, 0.8)";
-            overlay.style.display = "flex";
-            overlay.style.justifyContent = "center";
-            overlay.style.alignItems = "center";
+            overlay.className = "overlay";
             overlay.onclick = () => overlay.remove();
             
             let img = document.createElement("img");
             img.src = src;
-            img.style.maxWidth = "80%";
-            img.style.maxHeight = "80%";
-            img.style.borderRadius = "10px";
-            img.style.boxShadow = "0 0 15px rgba(255, 255, 255, 0.5)";
-            
             overlay.appendChild(img);
             document.body.appendChild(overlay);
         }
