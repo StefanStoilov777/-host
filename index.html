@@ -102,21 +102,21 @@
         <h3>Contact</h3>
         <p>Email: <a href="mailto:sstoilov777@gmail.com" style="color: #7FDBFF; text-decoration: none;">sstoilov777@gmail.com</a></p>
     </div>
-
     <script>
-        // Load certificates dynamically
+        // Load certificates dynamically from URLs
         const certGallery = document.getElementById("certGallery");
-        const certFolder = "certificates/"; // Folder where certificates are stored
-        const certImages = ["CS50P.jpg"]; // Placeholder list
-
-        certImages.forEach(img => {
+        const certImages = [
+            "https://github.com/StefanStoilov777/-host/blob/main/CS50P.png?raw=true"
+        ]; 
+        
+        certImages.forEach(url => {
             let imgElem = document.createElement("img");
-            imgElem.src = certFolder + img;
+            imgElem.src = url;
             imgElem.alt = "Certificate";
             imgElem.onclick = () => openCert(imgElem.src);
             certGallery.appendChild(imgElem);
         });
-
+    
         function openCert(src) {
             let overlay = document.createElement("div");
             overlay.style.position = "fixed";
@@ -140,7 +140,7 @@
             overlay.appendChild(img);
             document.body.appendChild(overlay);
         }
-
+    
         // Easter Egg: Hidden Game
         document.addEventListener("keydown", (e) => {
             if (e.code === "KeyG") {
