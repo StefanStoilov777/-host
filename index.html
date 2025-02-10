@@ -12,6 +12,7 @@
             --hover-bg: rgba(255, 255, 255, 0.08);
             --text-color: #ffffff;
         }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
@@ -21,7 +22,6 @@
             color: var(--text-color);
         }
 
-        /* Sidebar Styles */
         .sidebar {
             position: fixed;
             left: 0;
@@ -62,11 +62,10 @@
         }
 
         .tab.active {
-            background: var(--content-bg);
+            background: #000000 !important;
             font-weight: 500;
         }
 
-        /* Main Content Styles */
         .main-content {
             margin-left: 260px;
             padding: 40px;
@@ -85,7 +84,6 @@
             display: block;
         }
 
-        /* Certificate Overlay */
         .overlay {
             position: fixed;
             top: 0;
@@ -103,10 +101,8 @@
             max-width: 90%;
             max-height: 90%;
             border-radius: 20px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
         }
 
-        /* Original Content Styles */
         img.profile {
             width: 150px;
             height: 150px;
@@ -146,45 +142,81 @@
     </nav>
 
     <main class="main-content">
-        <!-- Content sections remain the same -->
+        <div id="about" class="content active">
+            <img src="profile.jpg" alt="Stefan Stoilov" class="profile">
+            <h1>Stefan Nikolaev Stoilov</h1>
+            <h2>Cybersecurity Enthusiast, Coder, Future Engineer</h2>
+        </div>
+
+        <div id="skills" class="content">
+            <h3>Technical Skills</h3>
+            <div class="skills">
+                <div class="skill">Coding</div>
+                <div class="skill">Cybersecurity</div>
+                <div class="skill">Building Robots</div>
+            </div>
+
+            <h3>Programming Languages</h3>
+            <div class="skills">
+                <div class="skill">Python</div>
+                <div class="skill">HTML</div>
+                <div class="skill">JavaScript</div>
+                <div class="skill">Java (a bit)</div>
+            </div>
+        </div>
+
+        <div id="certs" class="content">
+            <h3>Certificates</h3>
+            <div class="certificates" id="certGallery">
+                <!-- Certificates will be loaded here -->
+            </div>
+        </div>
+
+        <div id="contact" class="content">
+            <h3>Contact Information</h3>
+            <p>Email: <a href="mailto:sstoilov777@gmail.com" 
+                       style="color: var(--primary-color); 
+                              text-decoration: none;
+                              font-weight: 500;">
+                      sstoilov777@gmail.com</a></p>
+        </div>
     </main>
 
     <script>
-        // Modified tab switching logic with hover effect
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('mouseenter', function() {
-                if (!this.classList.contains('active')) {
-                    this.style.background = 'var(--hover-bg)';
-                }
-            });
-            
-            tab.addEventListener('mouseleave', function() {
-                if (!this.classList.contains('active')) {
-                    this.style.background = 'transparent';
-                }
-            });
-
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.tab, .content').forEach(el => {
-                    el.classList.remove('active');
-                });
-                this.classList.add('active');
-                document.getElementById(this.dataset.tab).classList.add('active');
-            });
-        });
-
-        // Original Certificate Loading Logic
+        // Fixed certificate loading
         const certGallery = document.getElementById("certGallery");
         const certImages = [
             "https://github.com/StefanStoilov777/-host/blob/main/CS50P.png?raw=true"
-        ]; 
-        
-        certImages.forEach(url => {
-            let imgElem = document.createElement("img");
-            imgElem.src = url;
-            imgElem.alt = "Certificate";
-            imgElem.onclick = () => openCert(imgElem.src);
-            certGallery.appendChild(imgElem);
+        ];
+
+        if(certGallery) {
+            certImages.forEach(url => {
+                let imgElem = document.createElement("img");
+                imgElem.src = url;
+                imgElem.alt = "Certificate";
+                imgElem.onclick = () => openCert(imgElem.src);
+                certGallery.appendChild(imgElem);
+            });
+        }
+
+        // Fixed tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Hide all content
+                document.querySelectorAll('.content').forEach(c => {
+                    c.classList.remove('active');
+                });
+
+                // Activate clicked tab and content
+                this.classList.add('active');
+                const tabId = this.dataset.tab;
+                document.getElementById(tabId).classList.add('active');
+            });
         });
 
         function openCert(src) {
@@ -198,7 +230,7 @@
             document.body.appendChild(overlay);
         }
 
-        // Easter Egg Preserved
+        // Preserved Easter Egg
         document.addEventListener("keydown", (e) => {
             if (e.code === "KeyG") {
                 alert("Easter Egg Unlocked! Play a quick game!");
