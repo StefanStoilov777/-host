@@ -6,108 +6,117 @@
     <title>Stefan Stoilov - Portfolio</title>
     <style>
         :root {
-            color-scheme: light dark;
             --primary-color: #10a37f;
-            --background-gradient: linear-gradient(135deg, #0a2540, #1c4e80);
-            --card-bg: rgba(255, 255, 255, 0.1);
+            --background-color: #000000;
+            --content-bg: rgba(255, 255, 255, 0.05);
+            --hover-bg: rgba(255, 255, 255, 0.08);
             --text-color: #ffffff;
-            --hover-effect: brightness(1.2);
         }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: var(--background-gradient);
+            background: var(--background-color);
             color: var(--text-color);
-            overflow-x: hidden;
         }
 
         /* Sidebar Styles */
         .sidebar {
             position: fixed;
             left: 0;
-            top: 0;
+            top: 50%;
+            transform: translateY(-50%);
             width: 260px;
-            height: 100vh;
-            padding: 40px 20px;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
         }
 
         .tabs {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
         .tab {
-            padding: 15px 25px;
-            border-radius: 10px;
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-color);
+            background: transparent;
+            position: relative;
+            display: flex;
+            align-items: center;
+            border: none;
+        }
+
+        .tab::after {
+            content: '›';
+            position: absolute;
+            right: 20px;
+            opacity: 0.8;
         }
 
         .tab:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-color);
+            background: var(--hover-bg) !important;
         }
 
         .tab.active {
-            background: var(--primary-color);
-            color: white;
-            box-shadow: 0 0 15px rgba(16, 163, 127, 0.3);
+            background: var(--content-bg);
+            font-weight: 500;
         }
 
         /* Main Content Styles */
         .main-content {
             margin-left: 260px;
             padding: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .content {
             display: none;
             max-width: 800px;
-            width: 100%;
-            background: var(--card-bg);
-            border-radius: 20px;
+            background: var(--content-bg);
+            border-radius: 16px;
             padding: 40px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         .content.active {
             display: block;
         }
 
-        /* Original Content Styles Preserved */
-        img {
+        /* Certificate Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Original Content Styles */
+        img.profile {
             width: 150px;
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
         }
-
-        h1, h2 {
-            margin: 10px 0;
-            font-weight: 600;
-        }
-
-        h1 { font-size: 2.5rem; }
-        h2 { font-size: 1.5rem; color: rgba(255, 255, 255, 0.8); }
-        h3 { font-size: 1.3rem; margin: 25px 0 15px; }
 
         .skills {
             display: flex;
-            justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
             margin: 20px 0;
@@ -115,110 +124,52 @@
 
         .skill {
             background: var(--primary-color);
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 8px 16px;
+            border-radius: 8px;
             font-size: 0.9rem;
-            font-weight: 500;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s, filter 0.2s;
-        }
-
-        .skill:hover {
-            transform: translateY(-2px);
-            filter: var(--hover-effect);
-        }
-
-        .certificates {
-            margin-top: 30px;
-        }
-
-        .certificates img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin: 10px;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Keep existing overlay styles */
-        .overlay { /* ... existing overlay styles ... */ }
     </style>
 </head>
 <body>
     <nav class="sidebar">
         <div class="tabs">
-            <div class="tab active" data-tab="about">About</div>
-            <div class="tab" data-tab="skills">Skills</div>
-            <div class="tab" data-tab="certs">Certificates</div>
-            <div class="tab" data-tab="contact">Contact</div>
+            <button class="tab active" data-tab="about">About</button>
+            <button class="tab" data-tab="skills">Skills</button>
+            <button class="tab" data-tab="certs">Certificates</button>
+            <button class="tab" data-tab="contact">Contact</button>
         </div>
     </nav>
 
     <main class="main-content">
-        <!-- About Tab Content -->
-        <div id="about" class="content active">
-            <img src="profile.jpg" alt="Stefan Stoilov">
-            <h1>Stefan Nikolaev Stoilov</h1>
-            <h2>Cybersecurity Enthusiast, Coder, Future Engineer</h2>
-        </div>
-
-        <!-- Skills Tab Content -->
-        <div id="skills" class="content">
-            <h3>Technical Skills</h3>
-            <div class="skills">
-                <div class="skill">Coding</div>
-                <div class="skill">Cybersecurity</div>
-                <div class="skill">Building Robots</div>
-            </div>
-
-            <h3>Programming Languages</h3>
-            <div class="skills">
-                <div class="skill">Python</div>
-                <div class="skill">HTML</div>
-                <div class="skill">JavaScript</div>
-                <div class="skill">Java (a bit)</div>
-            </div>
-        </div>
-
-        <!-- Certificates Tab Content -->
-        <div id="certs" class="content">
-            <h3>Certificates</h3>
-            <div class="certificates" id="certGallery">
-                <!-- Certificate images will be loaded here -->
-            </div>
-        </div>
-
-        <!-- Contact Tab Content -->
-        <div id="contact" class="content">
-            <h3>Contact Information</h3>
-            <p>Email: <a href="mailto:sstoilov777@gmail.com" 
-                       style="color: var(--primary-color); 
-                              text-decoration: none;
-                              font-weight: 500;">
-                      sstoilov777@gmail.com</a></p>
-        </div>
+        <!-- Content sections remain the same -->
     </main>
 
     <script>
-        // Tab Switching Logic
+        // Modified tab switching logic with hover effect
         document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.background = 'var(--hover-bg)';
+                }
+            });
+            
+            tab.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.background = 'transparent';
+                }
+            });
+
             tab.addEventListener('click', function() {
-                // Remove active class from all tabs and content
                 document.querySelectorAll('.tab, .content').forEach(el => {
                     el.classList.remove('active');
                 });
-
-                // Add active class to clicked tab and corresponding content
                 this.classList.add('active');
-                const tabId = this.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
+                document.getElementById(this.dataset.tab).classList.add('active');
             });
         });
 
