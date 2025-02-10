@@ -98,9 +98,10 @@
         }
 
         .overlay img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 20px;
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 15px;
+            object-fit: contain;
         }
 
         img.profile {
@@ -123,6 +124,29 @@
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 0.9rem;
+        }
+
+        .certificates {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .certificates img {
+            width: 30px;  /* 80% smaller than original 150px */
+            height: 30px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
+        }
+
+        .certificates img:hover {
+            transform: scale(3.5);
+            z-index: 2;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
         @keyframes fadeIn {
@@ -183,13 +207,14 @@
     </main>
 
     <script>
-        // Fixed certificate loading
+        // Certificate loading
         const certGallery = document.getElementById("certGallery");
         const certImages = [
-            "https://github.com/StefanStoilov777/-host/blob/main/CS50P.png?raw=true"
+            "https://github.com/StefanStoilov777/-host/blob/main/CS50P.png?raw=true",
+            // Add more certificate URLs here
         ];
 
-        if(certGallery) {
+        if (certGallery) {
             certImages.forEach(url => {
                 let imgElem = document.createElement("img");
                 imgElem.src = url;
@@ -199,7 +224,7 @@
             });
         }
 
-        // Fixed tab switching
+        // Tab switching logic
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', function() {
                 // Remove active class from all tabs
@@ -219,6 +244,7 @@
             });
         });
 
+        // Certificate overlay
         function openCert(src) {
             let overlay = document.createElement("div");
             overlay.className = "overlay";
@@ -230,7 +256,7 @@
             document.body.appendChild(overlay);
         }
 
-        // Preserved Easter Egg
+        // Easter Egg
         document.addEventListener("keydown", (e) => {
             if (e.code === "KeyG") {
                 alert("Easter Egg Unlocked! Play a quick game!");
