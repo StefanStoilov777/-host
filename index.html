@@ -20,12 +20,14 @@
             min-height: 100vh;
             background: var(--background-color);
             color: var(--text-color);
+            overflow-x: hidden;
         }
 
+        /* Sidebar Styles */
         .sidebar {
             position: fixed;
             left: 0;
-            top: 50%;
+            top: 20%; /* Moved higher up */
             transform: translateY(-50%);
             width: 260px;
             padding: 20px;
@@ -48,6 +50,7 @@
             display: flex;
             align-items: center;
             border: none;
+            transform: scale(1);
         }
 
         .tab::after {
@@ -59,6 +62,7 @@
 
         .tab:hover {
             background: var(--hover-bg) !important;
+            transform: scale(1.05); /* Slightly bigger on hover */
         }
 
         .tab.active {
@@ -66,14 +70,23 @@
             font-weight: 500;
         }
 
+        /* Main Content Styles */
         .main-content {
-            margin-left: 260px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
             padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .content {
             display: none;
-            max-width: 800px;
+            width: 100%;
             background: var(--content-bg);
             border-radius: 16px;
             padding: 40px;
@@ -84,6 +97,7 @@
             display: block;
         }
 
+        /* Certificate Overlay */
         .overlay {
             position: fixed;
             top: 0;
@@ -95,6 +109,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            animation: fadeInOverlay 0.3s ease-in-out;
         }
 
         .overlay img {
@@ -102,6 +117,17 @@
             max-height: 95%;
             border-radius: 15px;
             object-fit: contain;
+            animation: scaleUp 0.3s ease-in-out;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.8); }
+            to { transform: scale(1); }
         }
 
         img.profile {
@@ -126,6 +152,7 @@
             font-size: 0.9rem;
         }
 
+        /* Certificate Grid */
         .certificates {
             display: flex;
             flex-wrap: wrap;
@@ -134,17 +161,17 @@
         }
 
         .certificates img {
-            width: 30px;  /* 80% smaller than original 150px */
-            height: 30px;
+            width: 90px; /* 3x the original 30px size */
+            height: 90px;
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
         }
 
         .certificates img:hover {
-            transform: scale(3.5);
+            transform: scale(1.1); /* Slightly bigger on hover */
             z-index: 2;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
@@ -244,7 +271,7 @@
             });
         });
 
-        // Certificate overlay
+        // Certificate overlay with animation
         function openCert(src) {
             let overlay = document.createElement("div");
             overlay.className = "overlay";
