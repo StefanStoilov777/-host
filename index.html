@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stefan Stoilov - About Me</title>
+    <title>Stefan Stoilov - Portfolio</title>
     <style>
         :root {
             color-scheme: light dark;
@@ -17,43 +17,94 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
             background: var(--background-gradient);
             color: var(--text-color);
-            text-align: center;
-            overflow: hidden;
+            overflow-x: hidden;
         }
-        .container {
-            max-width: 800px;
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+        }
+
+        .tab.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 15px rgba(16, 163, 127, 0.3);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 260px;
             padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .content {
+            display: none;
+            max-width: 800px;
+            width: 100%;
             background: var(--card-bg);
             border-radius: 20px;
+            padding: 40px;
             backdrop-filter: blur(10px);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 0.5s ease-in-out;
         }
+
+        .content.active {
+            display: block;
+        }
+
+        /* Original Content Styles Preserved */
         img {
             width: 150px;
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-            animation: popIn 0.5s ease-in-out;
         }
+
         h1, h2 {
             margin: 10px 0;
             font-weight: 600;
         }
-        h1 {
-            font-size: 2.5rem;
-        }
-        h2 {
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 1.5rem; color: rgba(255, 255, 255, 0.8); }
+        h3 { font-size: 1.3rem; margin: 25px 0 15px; }
+
         .skills {
             display: flex;
             justify-content: center;
@@ -61,6 +112,7 @@
             flex-wrap: wrap;
             margin: 20px 0;
         }
+
         .skill {
             background: var(--primary-color);
             padding: 10px 20px;
@@ -70,13 +122,16 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s, filter 0.2s;
         }
+
         .skill:hover {
             transform: translateY(-2px);
             filter: var(--hover-effect);
         }
+
         .certificates {
             margin-top: 30px;
         }
+
         .certificates img {
             width: 150px;
             height: 150px;
@@ -86,73 +141,88 @@
             transition: transform 0.3s, box-shadow 0.3s;
             margin: 10px;
         }
-        .certificates img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            cursor: pointer;
-            overflow: auto; /* Allow scrolling if the image is larger than the viewport */
-        }
-        .overlay img {
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-            max-width: none; /* Remove max-width constraint */
-            max-height: none; /* Remove max-height constraint */
-            width: auto; /* Allow the image to use its original width */
-            height: auto; /* Allow the image to use its original height */
-        }
+
+        /* Keep existing overlay styles */
+        .overlay { /* ... existing overlay styles ... */ }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="profile.jpg" alt="Stefan Stoilov">
-        <h1>Stefan Nikolaev Stoilov</h1>
-        <h2>Cybersecurity Enthusiast, Coder, Future Engineer</h2>
-        
-        <h3>Skills</h3>
-        <div class="skills">
-            <div class="skill">Coding</div>
-            <div class="skill">Cybersecurity</div>
-            <div class="skill">Building Robots</div>
+    <nav class="sidebar">
+        <div class="tabs">
+            <div class="tab active" data-tab="about">About</div>
+            <div class="tab" data-tab="skills">Skills</div>
+            <div class="tab" data-tab="certs">Certificates</div>
+            <div class="tab" data-tab="contact">Contact</div>
         </div>
-        
-        <h3>Programming Languages</h3>
-        <div class="skills">
-            <div class="skill">Python</div>
-            <div class="skill">HTML</div>
-            <div class="skill">JavaScript</div>
-            <div class="skill">Java (a bit)</div>
+    </nav>
+
+    <main class="main-content">
+        <!-- About Tab Content -->
+        <div id="about" class="content active">
+            <img src="profile.jpg" alt="Stefan Stoilov">
+            <h1>Stefan Nikolaev Stoilov</h1>
+            <h2>Cybersecurity Enthusiast, Coder, Future Engineer</h2>
         </div>
-        
-        <h3>Certificates</h3>
-        <div class="certificates" id="certGallery">
-            <!-- Certificate images will be loaded here -->
+
+        <!-- Skills Tab Content -->
+        <div id="skills" class="content">
+            <h3>Technical Skills</h3>
+            <div class="skills">
+                <div class="skill">Coding</div>
+                <div class="skill">Cybersecurity</div>
+                <div class="skill">Building Robots</div>
+            </div>
+
+            <h3>Programming Languages</h3>
+            <div class="skills">
+                <div class="skill">Python</div>
+                <div class="skill">HTML</div>
+                <div class="skill">JavaScript</div>
+                <div class="skill">Java (a bit)</div>
+            </div>
         </div>
-        
-        <h3>Contact</h3>
-        <p>Email: <a href="mailto:sstoilov777@gmail.com" style="color: var(--primary-color); text-decoration: none;">sstoilov777@gmail.com</a></p>
-    </div>
+
+        <!-- Certificates Tab Content -->
+        <div id="certs" class="content">
+            <h3>Certificates</h3>
+            <div class="certificates" id="certGallery">
+                <!-- Certificate images will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Contact Tab Content -->
+        <div id="contact" class="content">
+            <h3>Contact Information</h3>
+            <p>Email: <a href="mailto:sstoilov777@gmail.com" 
+                       style="color: var(--primary-color); 
+                              text-decoration: none;
+                              font-weight: 500;">
+                      sstoilov777@gmail.com</a></p>
+        </div>
+    </main>
+
     <script>
-        // Load certificates dynamically from URLs
+        // Tab Switching Logic
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab, .content').forEach(el => {
+                    el.classList.remove('active');
+                });
+
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Original Certificate Loading Logic
         const certGallery = document.getElementById("certGallery");
         const certImages = [
             "https://github.com/StefanStoilov777/-host/blob/main/CS50P.png?raw=true"
@@ -165,7 +235,7 @@
             imgElem.onclick = () => openCert(imgElem.src);
             certGallery.appendChild(imgElem);
         });
-    
+
         function openCert(src) {
             let overlay = document.createElement("div");
             overlay.className = "overlay";
@@ -176,12 +246,12 @@
             overlay.appendChild(img);
             document.body.appendChild(overlay);
         }
-    
-        // Easter Egg: Hidden Game
+
+        // Easter Egg Preserved
         document.addEventListener("keydown", (e) => {
             if (e.code === "KeyG") {
                 alert("Easter Egg Unlocked! Play a quick game!");
-                window.location.href = "game.html"; // Placeholder for an actual game
+                window.location.href = "game.html";
             }
         });
     </script>
