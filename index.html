@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stefan Stoilov - Portfolio</title>
+    <!-- Load Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #10a37f;
@@ -21,6 +23,7 @@
             background: var(--background-color);
             color: var(--text-color);
             overflow-x: hidden;
+            font-weight: 400; /* Default font weight */
         }
 
         /* Sidebar Styles */
@@ -51,6 +54,7 @@
             align-items: center;
             border: none;
             transform: scale(1);
+            font-weight: 500; /* Medium weight for buttons */
         }
 
         .tab::after {
@@ -67,7 +71,7 @@
 
         .tab.active {
             background: #000000 !important;
-            font-weight: 500;
+            font-weight: 600; /* Semi-bold for active tab */
         }
 
         /* Main Content Styles */
@@ -95,6 +99,26 @@
 
         .content.active {
             display: block;
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600; /* Semi-bold for main heading */
+            margin: 10px 0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 500; /* Medium for subheading */
+            color: rgba(255, 255, 255, 0.8);
+            margin: 10px 0;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600; /* Semi-bold for section headings */
+            margin: 25px 0 15px;
         }
 
         /* Certificate Overlay */
@@ -150,6 +174,7 @@
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 0.9rem;
+            font-weight: 500; /* Medium weight for skills */
         }
 
         /* Certificate Grid */
