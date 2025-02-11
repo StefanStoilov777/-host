@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stefan Stoilov - Portfolio</title>
-    <!-- Load Inter font from Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #10a37f;
@@ -23,14 +22,14 @@
             background: var(--background-color);
             color: var(--text-color);
             overflow-x: hidden;
-            font-weight: 400; /* Default font weight */
+            font-weight: 400;
         }
 
         /* Sidebar Styles */
         .sidebar {
             position: fixed;
             left: 0;
-            top: 30%; /* Adjusted to move buttons one button lower */
+            top: 30%;
             transform: translateY(-50%);
             width: 260px;
             padding: 20px;
@@ -53,8 +52,8 @@
             display: flex;
             align-items: center;
             border: none;
-            transform: scale(1);
-            font-weight: 500; /* Medium weight for buttons */
+            font-weight: 500;
+            font-size: 1rem; /* Fixed font size */
         }
 
         .tab::after {
@@ -66,12 +65,12 @@
 
         .tab:hover {
             background: var(--hover-bg) !important;
-            transform: scale(1.05); /* Slightly bigger on hover */
+            /* Removed transform: scale */
         }
 
         .tab.active {
             background: #000000 !important;
-            font-weight: 600; /* Semi-bold for active tab */
+            font-weight: 500; /* Consistent font weight */
         }
 
         /* Main Content Styles */
@@ -101,23 +100,27 @@
             display: block;
         }
 
-        /* Headings */
+        /* Text Elements */
+        h1, h2, h3, p, .skill {
+            font-family: 'Inter', sans-serif; /* Consistent font family */
+        }
+
         h1 {
             font-size: 2.5rem;
-            font-weight: 600; /* Semi-bold for main heading */
+            font-weight: 600;
             margin: 10px 0;
         }
 
         h2 {
             font-size: 1.5rem;
-            font-weight: 500; /* Medium for subheading */
+            font-weight: 500;
             color: rgba(255, 255, 255, 0.8);
             margin: 10px 0;
         }
 
         h3 {
             font-size: 1.3rem;
-            font-weight: 600; /* Semi-bold for section headings */
+            font-weight: 600;
             margin: 25px 0 15px;
         }
 
@@ -136,24 +139,15 @@
             animation: fadeInOverlay 0.3s ease-in-out;
         }
 
-        .overlay img {
-            max-width: 95%;
-            max-height: 95%;
-            border-radius: 15px;
-            object-fit: contain;
-            animation: scaleUp 0.3s ease-in-out;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes fadeInOverlay {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
-        @keyframes scaleUp {
-            from { transform: scale(0.8); }
-            to { transform: scale(1); }
-        }
-
         img.profile {
             width: 150px;
             height: 150px;
