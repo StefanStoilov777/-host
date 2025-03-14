@@ -285,7 +285,7 @@
                        target="_blank" 
                        rel="noopener noreferrer">
                        The developer</a></p>
-        </div>
+        </div>    
     </main>
 
     <!-- Single language toggle button outside content -->
@@ -294,6 +294,8 @@
     <script>
         // Language toggle logic
         const languageToggle = document.querySelector('.language-toggle');
+        const tabs = document.querySelectorAll('.tab');
+
         const englishContent = {
             about: {
                 title: "Stefan Nikolaev Stoilov",
@@ -312,6 +314,12 @@
                 title: "Contact Information",
                 email: "Email: ",
                 discord: "Discord: "
+            },
+            tabs: {
+                about: "About",
+                skills: "Skills",
+                certs: "Certificates",
+                contact: "Contact"
             }
         };
 
@@ -333,6 +341,12 @@
                 title: "Контактна Информация",
                 email: "Имейл: ",
                 discord: "Дискорд: "
+            },
+            tabs: {
+                about: "За Мен",
+                skills: "Умения",
+                certs: "Сертификати",
+                contact: "Контакт"
             }
         };
 
@@ -349,6 +363,12 @@
 
             // Update toggle button text
             languageToggle.textContent = toggleText;
+
+            // Update tab names
+            tabs.forEach(tab => {
+                const tabId = tab.dataset.tab;
+                tab.textContent = content.tabs[tabId];
+            });
 
             // Update About section
             const aboutSection = document.getElementById('about');
