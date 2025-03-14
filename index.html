@@ -12,6 +12,8 @@
             --content-bg: rgba(255, 255, 255, 0.05);
             --hover-bg: rgba(255, 255, 255, 0.08);
             --text-color: #ffffff;
+            --button-bg: rgba(255, 255, 255, 0.1);
+            --button-hover-bg: rgba(255, 255, 255, 0.15);
         }
 
         body {
@@ -53,7 +55,7 @@
             align-items: center;
             border: none;
             font-weight: 500;
-            font-size: 0.9rem; /* Smaller font size for sidebar */
+            font-size: 0.9rem;
         }
 
         .tab::after {
@@ -142,7 +144,7 @@
         }
 
         .certificates img:hover {
-            transform: scale(1.1); /* Slightly bigger on hover */
+            transform: scale(1.1);
             z-index: 2;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
@@ -165,7 +167,7 @@
         .overlay img {
             max-width: 90%;
             max-height: 90%;
-            border-radius: 20px; /* Rounded edges */
+            border-radius: 20px;
             object-fit: contain;
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -196,11 +198,35 @@
         }
 
         .skill {
-            background: var(--primary-color);
+            background: var(--button-bg);
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 0.9rem;
             font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        /* Language Toggle Button */
+        .language-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 16px;
+            background: var(--button-bg);
+            color: var(--text-color);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            z-index: 1000;
+        }
+
+        .language-toggle:hover {
+            background: var(--button-hover-bg);
+            transform: translateX(-50%) scale(1.05);
         }
     </style>
 </head>
@@ -259,11 +285,108 @@
                        target="_blank" 
                        rel="noopener noreferrer">
                        The developer</a></p>
-
         </div>
     </main>
 
+    <!-- Single language toggle button outside content -->
+    <button class="language-toggle">Смени на Български</button>
+
     <script>
+        // Language toggle logic
+        const languageToggle = document.querySelector('.language-toggle');
+        const englishContent = {
+            about: {
+                title: "Stefan Nikolaev Stoilov",
+                subtitle: "Cybersecurity Enthusiast, Coder, Future Engineer"
+            },
+            skills: {
+                technicalSkills: "Technical Skills",
+                programmingLanguages: "Programming Languages",
+                skills: ["Coding", "Cybersecurity", "Building Robots"],
+                languages: ["Python", "HTML", "JavaScript", "Java (a bit)"]
+            },
+            certs: {
+                title: "Certificates"
+            },
+            contact: {
+                title: "Contact Information",
+                email: "Email: ",
+                discord: "Discord: "
+            }
+        };
+
+        const bulgarianContent = {
+            about: {
+                title: "Стефан Николаев Стоилов",
+                subtitle: "Ентусиаст по киберсигурност, програмист, бъдещ инженер"
+            },
+            skills: {
+                technicalSkills: "Технически Умения",
+                programmingLanguages: "Програмни Езици",
+                skills: ["Кодиране", "Киберсигурност", "Изграждане на роботи"],
+                languages: ["Python", "HTML", "JavaScript", "Java (малко)"]
+            },
+            certs: {
+                title: "Сертификати"
+            },
+            contact: {
+                title: "Контактна Информация",
+                email: "Имейл: ",
+                discord: "Дискорд: "
+            }
+        };
+
+        let isEnglish = true;
+
+        languageToggle.addEventListener('click', () => {
+            isEnglish = !isEnglish;
+            updateLanguage(isEnglish);
+        });
+
+        function updateLanguage(isEnglish) {
+            const content = isEnglish ? englishContent : bulgarianContent;
+            const toggleText = isEnglish ? "Смени на Български" : "Switch to English";
+
+            // Update toggle button text
+            languageToggle.textContent = toggleText;
+
+            // Update About section
+            const aboutSection = document.getElementById('about');
+            aboutSection.querySelector('h1').textContent = content.about.title;
+            aboutSection.querySelector('h2').textContent = content.about.subtitle;
+
+            // Update Skills section
+            const skillsSection = document.getElementById('skills');
+            skillsSection.querySelector('h3:nth-of-type(1)').textContent = content.skills.technicalSkills;
+            skillsSection.querySelector('h3:nth-of-type(2)').textContent = content.skills.programmingLanguages;
+            const skillElements = skillsSection.querySelectorAll('.skill');
+            content.skills.skills.concat(content.skills.languages).forEach((skill, index) => {
+                skillElements[index].textContent = skill;
+            });
+
+            // Update Certificates section
+            const certsSection = document.getElementById('certs');
+            certsSection.querySelector('h3').textContent = content.certs.title;
+
+            // Update Contact section
+            const contactSection = document.getElementById('contact');
+            contactSection.querySelector('h3').textContent = content.contact.title;
+            contactSection.querySelector('p:nth-of-type(1)').innerHTML = `
+                ${content.contact.email} <a href="mailto:sstoilov777@gmail.com" 
+                style="color: var(--primary-color); 
+                       text-decoration: none;
+                       font-weight: 500;">
+                sstoilov777@gmail.com</a>`;
+            contactSection.querySelector('p:nth-of-type(2)').innerHTML = `
+                ${content.contact.discord} <a href="https://discordapp.com/users/1062409894860431560" 
+                style="color: var(--primary-color); 
+                       text-decoration: none;
+                       font-weight: 500;"
+                target="_blank" 
+                rel="noopener noreferrer">
+                The developer</a>`;
+        }
+
         // Certificate loading
         const certGallery = document.getElementById("certGallery");
         const certImages = [
