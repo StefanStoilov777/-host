@@ -285,17 +285,12 @@
         <div id="projects" class="content">
             <h3>My Current Projects</h3>
             <div class="certificates">
-                <img src="https://via.placeholder.com/200x150.png?text=Project+Preview" 
-                     alt="Sample Project" 
-                     style="width: 200px; height: 150px;">
+                <img src="https://raw.githubusercontent.com/StefanStoilov777/-host/refs/heads/main/unnamed.jpg" 
+                     alt="AI Robot Project" 
+                     style="width: 200px; height: 150px; object-fit: cover;">
             </div>
             <p style="margin-top: 20px; opacity: 0.8;">
-                [Embed your project documentation or description here]
-                <!-- Example embed placeholder: -->
-                <iframe src="about:blank" 
-                        style="width:100%; height:300px; border:none; margin-top:20px;"
-                        title="Project Documentation">
-                </iframe>
+                <span class="project-description"></span>
             </p>
         </div>
 
@@ -306,13 +301,7 @@
                               text-decoration: none;
                               font-weight: 500;">
                       sstoilov777@gmail.com</a></p>
-            <p>Discord: <a href="https://discordapp.com/users/1062409894860431560" 
-                       style="color: var(--primary-color); 
-                              text-decoration: none;
-                              font-weight: 500;"
-                       target="_blank" 
-                       rel="noopener noreferrer">
-                       The developer</a></p>
+            <p>Discord: _thedeveloperbg_</p>
         </div>
     </main>
 
@@ -348,7 +337,7 @@
             },
             projects: {
                 title: "My Current Projects",
-                sampleText: "[Embed your project documentation or description here]"
+                sampleText: "I am working on putting a locally hosted GPT (AI) I made in control of this robot using a Raspberry Pi Zero on-board computer. It will be capable of replying to your speech with its voice and execute movements based on it."
             },
             contact: {
                 title: "Contact Information",
@@ -389,7 +378,7 @@
             },
             projects: {
                 title: "Текущи Проекти",
-                sampleText: "В момента работя по изкуствен интелект и как да го вкарам в най-новия ми робот."
+                sampleText: "В момента работя върху интеграция на локално хостван GPT модел (Изкуствен Интелект), който създадох за управление на този робот с помощта на Raspberry Pi Zero платков компютър. Роботът ще може да отговаря на това което чува със свой глас и физически да прави движения според разговора."
             },
             contact: {
                 title: "Контактна Информация",
@@ -407,6 +396,9 @@
         };
 
         let isEnglish = true;
+
+        // Initialize the page in English
+        updateLanguage(isEnglish);
 
         languageToggle.addEventListener('click', () => {
             isEnglish = !isEnglish;
@@ -455,12 +447,7 @@
             // Update Projects section
             const projectsSection = document.getElementById('projects');
             projectsSection.querySelector('h3').textContent = content.projects.title;
-            projectsSection.querySelector('p').innerHTML = `
-                ${content.projects.sampleText}
-                <iframe src="about:blank" 
-                        style="width:100%; height:300px; border:none; margin-top:20px;"
-                        title="Project Documentation">
-                </iframe>`;
+            projectsSection.querySelector('.project-description').textContent = content.projects.sampleText;
 
             // Update Contact section
             const contactSection = document.getElementById('contact');
@@ -472,13 +459,7 @@
                        font-weight: 500;">
                 sstoilov777@gmail.com</a>`;
             contactSection.querySelector('p:nth-of-type(2)').innerHTML = `
-                ${content.contact.discord} <a href="https://discordapp.com/users/1062409894860431560" 
-                style="color: var(--primary-color); 
-                       text-decoration: none;
-                       font-weight: 500;"
-                target="_blank" 
-                rel="noopener noreferrer">
-                The developer</a>`;
+                ${content.contact.discord} <i>_thedeveloperbg_<i>`;
         }
 
         // Certificate loading
