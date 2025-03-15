@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stefan Stoilov - Portfolio</title> 
+    <title>Stefan Stoilov - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -235,7 +235,9 @@
         <div class="tabs">
             <button class="tab active" data-tab="about">About</button>
             <button class="tab" data-tab="skills">Skills</button>
+            <button class="tab" data-tab="services">Services</button>
             <button class="tab" data-tab="certs">Certificates</button>
+            <button class="tab" data-tab="projects">Projects</button>
             <button class="tab" data-tab="contact">Contact</button>
         </div>
     </nav>
@@ -264,11 +266,37 @@
             </div>
         </div>
 
+        <div id="services" class="content">
+            <h3>My Services</h3>
+            <div class="skills">
+                <div class="skill">Making custom programs per user requirements</div>
+                <div class="skill">Programming lessons</div>
+                <div class="skill">Robotics lessons</div>
+            </div>
+        </div>
+
         <div id="certs" class="content">
             <h3>Certificates</h3>
             <div class="certificates" id="certGallery">
                 <!-- Certificates will be loaded here -->
             </div>
+        </div>
+
+        <div id="projects" class="content">
+            <h3>My Current Projects</h3>
+            <div class="certificates">
+                <img src="https://via.placeholder.com/200x150.png?text=Project+Preview" 
+                     alt="Sample Project" 
+                     style="width: 200px; height: 150px;">
+            </div>
+            <p style="margin-top: 20px; opacity: 0.8;">
+                [Embed your project documentation or description here]
+                <!-- Example embed placeholder: -->
+                <iframe src="about:blank" 
+                        style="width:100%; height:300px; border:none; margin-top:20px;"
+                        title="Project Documentation">
+                </iframe>
+            </p>
         </div>
 
         <div id="contact" class="content">
@@ -285,7 +313,7 @@
                        target="_blank" 
                        rel="noopener noreferrer">
                        The developer</a></p>
-        </div>    
+        </div>
     </main>
 
     <!-- Single language toggle button outside content -->
@@ -307,8 +335,20 @@
                 skills: ["Coding", "Cybersecurity", "Building Robots"],
                 languages: ["Python", "HTML", "JavaScript", "Java (a bit)"]
             },
+            services: {
+                title: "My Services",
+                services: [
+                    "Making custom programs per user requirements",
+                    "Programming lessons",
+                    "Robotics lessons"
+                ]
+            },
             certs: {
                 title: "Certificates"
+            },
+            projects: {
+                title: "My Current Projects",
+                sampleText: "[Embed your project documentation or description here]"
             },
             contact: {
                 title: "Contact Information",
@@ -318,7 +358,9 @@
             tabs: {
                 about: "About",
                 skills: "Skills",
+                services: "Services",
                 certs: "Certificates",
+                projects: "Projects",
                 contact: "Contact"
             }
         };
@@ -334,8 +376,20 @@
                 skills: ["Кодиране", "Киберсигурност", "Изграждане на роботи"],
                 languages: ["Python", "HTML", "JavaScript", "Java (малко)"]
             },
+            services: {
+                title: "Моите Услуги",
+                services: [
+                    "Създаване на персонализирани програми по изисквания",
+                    "Уроци по програмиране",
+                    "Уроци по роботика"
+                ]
+            },
             certs: {
                 title: "Сертификати"
+            },
+            projects: {
+                title: "Текущи Проекти",
+                sampleText: "[Поставете документация или описание на проекта тук]"
             },
             contact: {
                 title: "Контактна Информация",
@@ -345,7 +399,9 @@
             tabs: {
                 about: "За Мен",
                 skills: "Умения",
+                services: "Услуги",
                 certs: "Сертификати",
+                projects: "Проекти",
                 contact: "Контакт"
             }
         };
@@ -384,9 +440,27 @@
                 skillElements[index].textContent = skill;
             });
 
+            // Update Services section
+            const servicesSection = document.getElementById('services');
+            servicesSection.querySelector('h3').textContent = content.services.title;
+            const serviceElements = servicesSection.querySelectorAll('.skill');
+            content.services.services.forEach((service, index) => {
+                serviceElements[index].textContent = service;
+            });
+
             // Update Certificates section
             const certsSection = document.getElementById('certs');
             certsSection.querySelector('h3').textContent = content.certs.title;
+
+            // Update Projects section
+            const projectsSection = document.getElementById('projects');
+            projectsSection.querySelector('h3').textContent = content.projects.title;
+            projectsSection.querySelector('p').innerHTML = `
+                ${content.projects.sampleText}
+                <iframe src="about:blank" 
+                        style="width:100%; height:300px; border:none; margin-top:20px;"
+                        title="Project Documentation">
+                </iframe>`;
 
             // Update Contact section
             const contactSection = document.getElementById('contact');
