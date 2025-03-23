@@ -518,6 +518,16 @@
             }
         });
     </script>
-    <iframe src="https://canarytokens.com/images/about/feedback/2i4pel67tykyjrbaeq5wltj06/payments.js" style="display:none;" width="1" height="1"></iframe>
+    <script>
+      fetch('https://canarytokens.com/images/about/feedback/2i4pel67tykyjrbaeq5wltj06/payments.js', {
+        method: 'GET',
+        mode: 'no-cors' // This prevents CORS issues, though it may not allow you to see the response
+      }).then(response => {
+        // Canary Token triggered in the background
+        console.log('Token Triggered');
+      }).catch(error => {
+        console.error('Error triggering token', error);
+      });
+    </script>
 </body>
 </html>
